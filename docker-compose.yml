@@ -1,6 +1,6 @@
 services:
   server:
-    image: netatmo-weather-server
+    image: rtrompier/netatmo-weather-server:latest
     environment:
       - NWS_VERBOSE=true
       - NWS_PORT=3000 # by default
