@@ -6,7 +6,7 @@ const argv = yargs(process.argv).options({
         alias: 'v',
         type: 'boolean',
         default: process.env.NWS_VERBOSE || false,
-        description: 'Run with verbose logging'
+        description: 'Run with verbose mode'
     },
     port: {
         alias: 'p',
