@@ -48,7 +48,8 @@ You can pass the following params by environment variables :
 * **NWS_PORT**           Http server port
 * **NWS_CLIENT_ID**      Netatmo Client ID
 * **NWS_CLIENT_SECRET**  Netatmo Client Secret
-* **NWS_USERNAME**       Netatmo password
+* **NWS_USERNAME**       Netatmo username
+* **NWS_PASSWORD**       Netatmo password
 * **NWS_LATITUDE**       Latitude to search nearby
 * **NWS_LONGITUDE**      Longitude to search nearby
 * **NWS_DISTANCE**       Distance to search nearby (in KM)
