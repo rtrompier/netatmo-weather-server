@@ -1,0 +1,10 @@
+.idea
+.vscode
+node_modules
+*.iml
+*.zip
+
+!dist
+spec
+coverage
+.nyc_output

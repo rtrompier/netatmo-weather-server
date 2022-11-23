@@ -1,0 +1,114 @@
+{
+    "status": "ok",
+    "time_server": 1669154410,
+    "body": [
+        {
+            "_id": "70:ee:50:58:de:58",
+            "place": {
+                "location": [
+                    6.0500156755543,
+                    46.2835768604157
+                ],
+                "timezone": "Europe/Paris",
+                "country": "FR",
+                "altitude": 494,
+                "city": "Chevry",
+                "street": "Rue des Moraines"
+            },
+            "mark": 10,
+            "measures": {
+                "02:00:00:58:e6:48": {
+                    "res": {
+                        "1669154297": [
+                            5.3,
+                            89
+                        ]
+                    },
+                    "type": [
+                        "temperature",
+                        "humidity"
+                    ]
+                },
+                "70:ee:50:58:de:58": {
+                    "res": {
+                        "1669154327": [
+                            1004.8
+                        ]
+                    },
+                    "type": [
+                        "pressure"
+                    ]
+                },
+                "06:00:00:04:30:06": {
+                    "wind_strength": 2,
+                    "wind_angle": 288,
+                    "gust_strength": 2,
+                    "gust_angle": 156,
+                    "wind_timeutc": 1669154152
+                }
+            },
+            "modules": [
+                "02:00:00:58:e6:48",
+                "06:00:00:04:30:06"
+            ],
+            "module_types": {
+                "02:00:00:58:e6:48": "NAModule1",
+                "06:00:00:04:30:06": "NAModule2"
+            }
+        },
+        {
+            "_id": "70:ee:50:58:de:58",
+            "place": {
+                "location": [
+                    6.0500156755543,
+                    46.2835768604157
+                ],
+                "timezone": "Europe/Paris",
+                "country": "FR",
+                "altitude": 494,
+                "city": "Chevry",
+                "street": "Rue des Moraines"
+            },
+            "mark": 10,
+            "measures": {
+                "02:00:00:58:e6:48": {
+                    "res": {
+                        "1669154297": [
+                            5.3,
+                            89
+                        ]
+                    },
+                    "type": [
+                        "temperature",
+                        "humidity"
+                    ]
+                },
+                "70:ee:50:58:de:58": {
+                    "res": {
+                        "1669154327": [
+                            1004.8
+                        ]
+                    },
+                    "type": [
+                        "pressure"
+                    ]
+                },
+                "06:00:00:04:30:06": {
+                    "wind_strength": 1,
+                    "wind_angle": 144,
+                    "gust_strength": 3,
+                    "gust_angle": 225,
+                    "wind_timeutc": 1669154323
+                }
+            },
+            "modules": [
+                "02:00:00:58:e6:48",
+                "06:00:00:04:30:06"
+            ],
+            "module_types": {
+                "02:00:00:58:e6:48": "NAModule1",
+                "06:00:00:04:30:06": "NAModule2"
+            }
+        }
+    ]
+}

@@ -1,0 +1,112 @@
+{
+    "status": "ok",
+    "time_server": 1669154410,
+    "body": [
+        {
+            "_id": "70:ee:50:3c:1c:ea",
+            "place": {
+                "location": [
+                    6.07002,
+                    46.281156
+                ],
+                "timezone": "Europe/Paris",
+                "country": "FR",
+                "altitude": 466,
+                "city": "Prévessin-Moëns",
+                "street": "Rue du Mesnil"
+            },
+            "mark": 10,
+            "measures": {
+                "02:00:00:3c:0c:3a": {
+                    "res": {
+                        "1669154119": [
+                            5.2,
+                            87
+                        ]
+                    },
+                    "type": [
+                        "temperature",
+                        "humidity"
+                    ]
+                },
+                "70:ee:50:3c:1c:ea": {
+                    "res": {
+                        "1669154162": [
+                            795.4
+                        ]
+                    },
+                    "type": [
+                        "pressure"
+                    ]
+                },
+                "05:00:00:05:c4:16": {
+                    "rain_60min": 1,
+                    "rain_24h": 3.25,
+                    "rain_live": 1,
+                    "rain_timeutc": 1669154189
+                }
+            },
+            "modules": [
+                "05:00:00:05:c4:16",
+                "02:00:00:3c:0c:3a"
+            ],
+            "module_types": {
+                "05:00:00:05:c4:16": "NAModule3",
+                "02:00:00:3c:0c:3a": "NAModule1"
+            }
+        },
+        {
+            "_id": "70:ee:50:3c:1c:ea",
+            "place": {
+                "location": [
+                    6.07002,
+                    46.281156
+                ],
+                "timezone": "Europe/Paris",
+                "country": "FR",
+                "altitude": 466,
+                "city": "Prévessin-Moëns",
+                "street": "Rue du Mesnil"
+            },
+            "mark": 10,
+            "measures": {
+                "02:00:00:3c:0c:3a": {
+                    "res": {
+                        "1669154119": [
+                            5.2,
+                            87
+                        ]
+                    },
+                    "type": [
+                        "temperature",
+                        "humidity"
+                    ]
+                },
+                "70:ee:50:3c:1c:ea": {
+                    "res": {
+                        "1669154162": [
+                            795.4
+                        ]
+                    },
+                    "type": [
+                        "pressure"
+                    ]
+                },
+                "05:00:00:05:c4:16": {
+                    "rain_60min": 0,
+                    "rain_24h": 2.4240000000000004,
+                    "rain_live": 0,
+                    "rain_timeutc": 1669154152
+                }
+            },
+            "modules": [
+                "05:00:00:05:c4:16",
+                "02:00:00:3c:0c:3a"
+            ],
+            "module_types": {
+                "05:00:00:05:c4:16": "NAModule3",
+                "02:00:00:3c:0c:3a": "NAModule1"
+            }
+        }
+    ]
+}

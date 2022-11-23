@@ -1,0 +1,158 @@
+{
+    "status": "ok",
+    "time_server": 1669154410,
+    "body": [
+        {
+            "_id": "70:ee:50:58:de:58",
+            "place": {
+                "location": [
+                    6.0500156755543,
+                    46.2835768604157
+                ],
+                "timezone": "Europe/Paris",
+                "country": "FR",
+                "altitude": 494,
+                "city": "Chevry",
+                "street": "Rue des Moraines"
+            },
+            "mark": 10,
+            "measures": {
+                "02:00:00:58:e6:48": {
+                    "res": {
+                        "1669154297": [
+                            5.3,
+                            89
+                        ]
+                    },
+                    "type": [
+                        "temperature",
+                        "humidity"
+                    ]
+                },
+                "70:ee:50:58:de:58": {
+                    "res": {
+                        "1669154327": [
+                            1004.8
+                        ]
+                    },
+                    "type": [
+                        "pressure"
+                    ]
+                },
+                "06:00:00:04:30:06": {
+                    "wind_strength": 1,
+                    "wind_angle": 144,
+                    "gust_strength": 3,
+                    "gust_angle": 225,
+                    "wind_timeutc": 1669154323
+                }
+            },
+            "modules": [
+                "02:00:00:58:e6:48",
+                "06:00:00:04:30:06"
+            ],
+            "module_types": {
+                "02:00:00:58:e6:48": "NAModule1",
+                "06:00:00:04:30:06": "NAModule2"
+            }
+        },
+        {
+            "_id": "70:ee:50:71:17:40",
+            "place": {
+                "location": [
+                    6.05425,
+                    46.284973
+                ],
+                "timezone": "Europe/Paris",
+                "country": "FR",
+                "altitude": 507,
+                "city": "Veraz",
+                "street": "Chemin des Hutins"
+            },
+            "mark": 10,
+            "measures": {
+                "02:00:00:71:2c:62": {
+                    "res": {
+                        "1669153820": [
+                            7.5,
+                            76
+                        ]
+                    },
+                    "type": [
+                        "temperature",
+                        "humidity"
+                    ]
+                },
+                "70:ee:50:71:17:40": {
+                    "res": {
+                        "1669153837": [
+                            1003.6
+                        ]
+                    },
+                    "type": [
+                        "pressure"
+                    ]
+                }
+            },
+            "modules": [
+                "02:00:00:71:2c:62"
+            ],
+            "module_types": {
+                "02:00:00:71:2c:62": "NAModule1"
+            }
+        },
+        {
+            "_id": "70:ee:50:3c:1c:ea",
+            "place": {
+                "location": [
+                    6.07002,
+                    46.281156
+                ],
+                "timezone": "Europe/Paris",
+                "country": "FR",
+                "altitude": 466,
+                "city": "Prévessin-Moëns",
+                "street": "Rue du Mesnil"
+            },
+            "mark": 10,
+            "measures": {
+                "02:00:00:3c:0c:3a": {
+                    "res": {
+                        "1669154119": [
+                            5.2,
+                            87
+                        ]
+                    },
+                    "type": [
+                        "temperature",
+                        "humidity"
+                    ]
+                },
+                "70:ee:50:3c:1c:ea": {
+                    "res": {
+                        "1669154162": [
+                            795.4
+                        ]
+                    },
+                    "type": [
+                        "pressure"
+                    ]
+                },
+                "05:00:00:05:c4:16": {
+                    "rain_60min": 0,
+                    "rain_24h": 2.4240000000000004,
+                    "rain_live": 0,
+                    "rain_timeutc": 1669154152
+                }
+            },
+            "modules": [
+                "05:00:00:05:c4:16",
+                "02:00:00:3c:0c:3a"
+            ],
+            "module_types": {
+                "05:00:00:05:c4:16": "NAModule3",
+                "02:00:00:3c:0c:3a": "NAModule1"
+            }
+        }
+    ]
+}
