@@ -1,6 +1,6 @@
 {
   "name": "netatmo-weather-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node server exposing public weather datas through a rest api",
   "main": "index.js",
   "bin": {
