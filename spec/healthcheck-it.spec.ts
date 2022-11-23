@@ -1,4 +1,5 @@
 import { Axios } from 'axios-observable';
+import { AddressInfo } from 'net';
 import { map } from 'rxjs/operators';
 import { Server } from '../src/server';
 
@@ -8,8 +9,15 @@ describe('Healthcheck', () => {
     
     beforeAll((done: DoneFn) => {
         app = new Server({
-            log: true,
-            port: 3000,
+            verbose: false,
+            port: 0,
+            clientId: '',
+            clientSecret: '',
+            username: '',
+            password: '',
+            latitude: 1,
+            longitude: 2,
+            distance: 3
         }, done);
     });
 
@@ -18,8 +26,8 @@ describe('Healthcheck', () => {
     });
 
     it('Healthcheck should return 200 OK', (done: DoneFn) => {
-        Axios.get(`http://localhost:3000/health`)
-            .pipe(map((resp: any) => resp.data))
+        Axios.get(`http://localhost:${(app.server.address() as AddressInfo).port}/health`)
+            .pipe(map((resp) => resp.data))
             .subscribe((resp) => {
                 expect(resp.status).toEqual('OK');
                 done();

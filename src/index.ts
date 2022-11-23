@@ -88,4 +88,5 @@ const argv = yargs(process.argv).options({
 })
     .argv;
 
-new Server(argv);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+new Server(argv as any);

@@ -147,7 +147,7 @@ export class NetatmoService {
             }
         }).pipe(
             tap((resp) => {
-                if (this.config.log) {
+                if (this.config.verbose) {
                     console.log(`Netatmo auth response`, resp.data);
                 }
             }),
@@ -172,7 +172,7 @@ export class NetatmoService {
      * Load datas from Netatmo
      */
     private getData(): Observable<WeatherStation[]> {
-        if (this.config.log) {
+        if (this.config.verbose) {
             console.log('Bounding coordinates to search nearby', this.boundCoords);
         }
 
@@ -184,7 +184,7 @@ export class NetatmoService {
             'lon_sw': this.boundCoords.sw.lng
         }).pipe(
             tap((resp) => {
-                if (this.config.log) {
+                if (this.config.verbose) {
                     console.log(`Weather API response`, resp.data);
                 }
             }),
@@ -203,7 +203,7 @@ export class NetatmoService {
             client_secret: this.config.clientSecret,
         }).pipe(
             tap((resp) => {
-                if (this.config.log) {
+                if (this.config.verbose) {
                     console.log(`Netatmo refreshAuth response`, resp.data);
                 }
             }),

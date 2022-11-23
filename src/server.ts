@@ -1,17 +1,19 @@
+import * as http from 'http';
 import express, { Express, Request, Response } from 'express';
 import { Config } from './model/config.model';
 import { WeatherStationData } from './model/weather-station-data.model';
 import { NetatmoService } from './service/netatmo-service';
+import { AddressInfo } from 'net';
 
 export class Server {
     public app: Express;
-    public server: any;
+    public server: http.Server;
 
     private readonly config: Config;
     private readonly netatmoService: NetatmoService;
 
-    constructor(argv: any, callback?: () => void) {
-        this.config = this.initConfig(argv);
+    constructor(argv: Config, callback?: () => void) {
+        this.config = argv;
         this.netatmoService = new NetatmoService(this.config);
 
         this.app = express();
@@ -27,25 +29,13 @@ export class Server {
             });
         });
 
-        this.server = this.app.listen(this.config.serverPort, () => {
-            console.log(`⚡️[server]: Server is running at http://localhost:${this.config.serverPort}`);
+        this.server = this.app.listen(this.config.port, () => {
+            console.log(`⚡️[server]: Server is running at http://localhost:${(this.server.address() as AddressInfo).port}`);
         });
 
         if (callback) {
             callback();
         }
-    }
-
-    private initConfig(argv: any): Config {
-        const config = new Config();
-
-        config.log = argv.verbose;
-        config.serverPort = argv.port;
-
-        console.log('CONFIG', config);
-
-
-        return config;
     }
 
 }
