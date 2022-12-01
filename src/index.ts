@@ -1,5 +1,8 @@
 import yargs from "yargs";
+import dotenv from "dotenv";
 import { Server } from './server';
+
+dotenv.config();
 
 const argv = yargs(process.argv)
     .env('NWS')
