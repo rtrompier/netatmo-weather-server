@@ -196,11 +196,15 @@ export class NetatmoService {
      * Refresh the current oauth token
      */
     private refreshAuth(): Observable<AuthResponse> {
-        return Axios.post(`https://api.netatmo.com/api/getpublicdata`, {
+        return Axios.post(`https://api.netatmo.com/oauth2/token`, {
             grant_type: 'refresh_token',
             refresh_token: this.refreshToken,
             client_id: this.config.clientId,
             client_secret: this.config.clientSecret,
+        }, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            }
         }).pipe(
             tap((resp) => {
                 if (this.config.verbose) {
@@ -208,15 +212,15 @@ export class NetatmoService {
                 }
             }),
             map((resp) => {
-                this.token = resp.data.body.access_token;
-                this.refreshToken = resp.data.body.refresh_token;
+                this.token = resp.data.access_token;
+                this.refreshToken = resp.data.refresh_token;
 
-                if (resp.data.body.expires_in) {
+                if (resp.data.expires_in) {
                     // Refresh token 10 seconds before expiration
-                    setTimeout(() => this.refreshAuth().pipe(first()).subscribe(), resp.data.body.expires_in - 10 * 1000);
+                    setTimeout(() => this.refreshAuth().pipe(first()).subscribe(), resp.data.expires_in - 10 * 1000);
                 }
 
-                return resp.data.body;
+                return resp.data;
             })
         );
     }
