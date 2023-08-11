@@ -11,10 +11,6 @@ describe('Healthcheck', () => {
         app = new Server({
             verbose: false,
             port: 0,
-            clientId: '',
-            clientSecret: '',
-            username: '',
-            password: '',
             latitude: 1,
             longitude: 2,
             distance: 3

@@ -1,7 +1,6 @@
 import { Axios } from 'axios-observable';
 import { Observable, of } from 'rxjs';
-import { catchError, first, map, mergeMap, switchMap, tap, toArray } from 'rxjs/operators';
-import { AuthResponse } from '../model/auth-response.model';
+import { catchError, map, mergeMap, switchMap, tap, toArray } from 'rxjs/operators';
 import { BoundsCoords } from '../model/bounds-coords.model';
 import { Config } from '../model/config.model';
 import { WeatherMeasure } from '../model/weather-measure.model';
@@ -126,46 +125,29 @@ export class NetatmoService {
     }
 
     /**
-     * Authentication to Netatmo API
+     * Find public access token in weather map home page
      * @returns 
      */
-    private auth(): Observable<AuthResponse | null> {
+    private auth(): Observable<null> {
         if (this.token) {
             return of(null);
         }
 
-        return Axios.post(`https://api.netatmo.com/oauth2/token`, {
-            'client_id': this.config.clientId,
-            'client_secret': this.config.clientSecret,
-            'grant_type': 'password',
-            'username': this.config.username,
-            'password': this.config.password,
-            'scope': 'read_station',
-        }, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            }
-        }).pipe(
-            tap((resp) => {
-                if (this.config.verbose) {
-                    console.log(`Netatmo auth response`, resp.data);
-                }
-            }),
-            map((resp) => {
-                this.token = resp.data.access_token;
-                this.refreshToken = resp.data.refresh_token;
-
-                if (resp.data.expires_in) {
-                    setTimeout(() => this.refreshAuth().pipe(first()).subscribe(), resp.data.expires_in * 1000);
-                }
-
-                return resp.data;
-            }),
-            catchError(err => {
-                console.error('Error while requesting netatmo token', err);
-                throw new Error('Error while requesting netatmo token')
-            })
-        );
+        return Axios.get(`https://weathermap.netatmo.com`)
+            .pipe(
+                tap((resp) => {
+                    if (this.config.verbose) {
+                        console.log(`Netatmo auth response`, resp);
+                    }
+                }),
+                map((resp) => {
+                    const matches = /accessToken: "?(.*)"/gm.exec(resp.data);
+                    if (matches && matches.length > 1) {
+                        this.token = matches[1];
+                    }
+                    return null;
+                })
+            );
     }
 
     /**
@@ -176,52 +158,29 @@ export class NetatmoService {
             console.log('Bounding coordinates to search nearby', this.boundCoords);
         }
 
-        return Axios.post(`https://api.netatmo.com/api/getpublicdata`, {
-            'access_token': this.token,
-            'lat_ne': this.boundCoords.ne.lat,
-            'lon_ne': this.boundCoords.ne.lng,
-            'lat_sw': this.boundCoords.sw.lat,
-            'lon_sw': this.boundCoords.sw.lng
-        }).pipe(
+        return Axios.get(`https://app.netatmo.net/api/getpublicmeasures`, {
+            headers: {
+                "Authorization": `Bearer ${this.token}`,
+            },
+            data: {
+                'lat_ne': this.boundCoords.ne.lat,
+                'lon_ne': this.boundCoords.ne.lng,
+                'lat_sw': this.boundCoords.sw.lat,
+                'lon_sw': this.boundCoords.sw.lng,
+                'limit': 2,
+                'divider': 4,
+                'zoom': 10,
+                'date_end': 'last',
+                'quality': 7,
+            }
+        })
+        .pipe(
             tap((resp) => {
                 if (this.config.verbose) {
                     console.log(`Weather API response`, resp.data);
                 }
             }),
             map((resp) => resp.data.body)
-        );
-    }
-
-    /**
-     * Refresh the current oauth token
-     */
-    private refreshAuth(): Observable<AuthResponse> {
-        return Axios.post(`https://api.netatmo.com/oauth2/token`, {
-            grant_type: 'refresh_token',
-            refresh_token: this.refreshToken,
-            client_id: this.config.clientId,
-            client_secret: this.config.clientSecret,
-        }, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            }
-        }).pipe(
-            tap((resp) => {
-                if (this.config.verbose) {
-                    console.log(`Netatmo refreshAuth response`, resp.data);
-                }
-            }),
-            map((resp) => {
-                this.token = resp.data.access_token;
-                this.refreshToken = resp.data.refresh_token;
-
-                if (resp.data.expires_in) {
-                    // Refresh token 10 seconds before expiration
-                    setTimeout(() => this.refreshAuth().pipe(first()).subscribe(), resp.data.expires_in - 10 * 1000);
-                }
-
-                return resp.data;
-            })
         );
     }
 

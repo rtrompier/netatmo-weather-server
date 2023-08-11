@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, maximum-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self' cdn.jsdelivr.net *.tiles.mapbox.com unpkg.com *.googletagmanager.com *.gstatic.com;
+  frame-src js-frame *.netatmo.com;
+  script-src 'self' 'unsafe-eval' cdn.jsdelivr.net *.tiles.mapbox.com unpkg.com www.googletagmanager.com blob: 'nonce-034347eb6506ee2196d9ed9baeb05f355f16e2ddfbe0c1e2ae1d1e5f581cdb61';
+  style-src 'self' 'unsafe-inline' *.tiles.mapbox.com cdn.jsdelivr.net *.googletagmanager.com *.googleapis.com;
+  img-src 'self' *.google-analytics.com https://stats.g.doubleclick.net/ *.googletagmanager.com *.gstatic.com data: blob:;
+  connect-src 'self' *.jawg.io *.netatmo.com *.netatmo.net *.mapbox.com *.abtasty.com *.google-analytics.com;
+  child-src 'self' blob: *.netatmo.com;
+  worker-src 'self' blob:;
+">
+        <!-- ########### Remplace manifest for IOs ########### -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Weathermap Netatmo">
+
+<link rel="apple-touch-icon" href="/images/favicons/FaviconWeathermap@114w.pngg">
+<link rel="apple-touch-startup-image" href="/images/favicons/FaviconWeathermap@114w.png">
+
+<link href="/images/favicons/favicon.ico" rel="icon"/>
+<link rel="apple-touch-icon" href="/images/favicons/FaviconWeathermap@57w.png" sizes="57x57">
+<!-- non-retina iPad pre iOS 7 -->
+<link rel="apple-touch-icon" href="/images/favicons/FaviconWeathermap@72w.png"   sizes="72x72">
+<!-- non-retina iPad iOS 7 -->
+<link rel="apple-touch-icon" href="/images/favicons/FaviconWeathermap@76w.png"   sizes="76x76">
+<!-- retina iPhone pre iOS 7 -->
+<link rel="apple-touch-icon" href="/images/favicons/FaviconWeathermap@114w.png"   sizes="114x114">
+<!-- retina iPhone iOS 7 -->
+<link rel="apple-touch-icon" href="/images/favicons/FaviconWeathermap@120w.png"   sizes="120x120">
+<!-- retina iPad pre iOS 7 -->
+<link rel="apple-touch-icon" href="/images/favicons/FaviconWeathermap@144w.png"   sizes="144x144">
+<!-- retina iPad iOS 7 -->
+<link rel="apple-touch-icon" href="/images/favicons/FaviconWeathermap@152w.png"   sizes="152x152">
+        <meta property="og:type" content="website"/>
+<meta property="og:title" content="Netatmo Weathermap"/>
+<meta property="og:description" content="Données météo en temps réel depuis la première communauté de stations météo personnelles au monde."/>
+<meta property="og:image" content="https://weathermap.netatmo.com/images/weathermap/weathermap.png"/>
+<meta property="og:image:secure_url" content="https://weathermap.netatmo.com/images/weathermap/weathermap.png"/>
+<meta property="og:image:type" content="image/png"/>
+
+<meta property="twitter:site" content="@netatmo"/>
+<meta property="twitter:title" content="Netatmo Weathermap"/>
+<meta property="twitter:description" content="Données météo en temps réel depuis la première communauté de stations météo personnelles au monde."/>
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:image" content="https://weathermap.netatmo.com/images/weathermap/weathermap.png"/>
+
+        <link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+
+        <title>Netatmo Weathermap</title>
+        <meta name="description" content="Données météo en temps réel depuis la première communauté de stations météo personnelles au monde.">
+
+        <link href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
+        <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+
+        <script nonce="034347eb6506ee2196d9ed9baeb05f355f16e2ddfbe0c1e2ae1d1e5f581cdb61">
+            window.config = {
+                apiUrl: "https://app.netatmo.net/api/",
+                accessToken: "52d42bfc1777599b298b456c|90035caa57ecd5dbaab93dddd1fdc775",
+                cookiePrefix: "netatmocom",
+                center: {lat: '48.5', lng: '2.2'},
+                countryCode: "FR",
+                continentCode: "",
+                browserLang: "fr-FR",
+                appEnv: "production",
+                ACTIVATE_SERVICE_WORKERS: false,
+                wmUrl: "https://weathermap.netatmo.com/",
+                myUrl: "https://my.netatmo.com/",
+                wwwUrl: "https://www.netatmo.com/",
+                authUrl: "https://auth.netatmo.com/",
+                loginUrl: "https://auth.netatmo.com/access/checklogin/",
+                viewUrl: "https://view.netatmo.com/",
+            };
+
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag(){
+                window.dataLayer.push(arguments);
+            }
+            window.gtag = gtag;
+
+            // Default ad_storage to 'denied'.
+            gtag('consent', 'default', {
+                'analytics_storage': 'denied',
+                'ad_storage': 'denied'
+            });
+
+            window.dataLayer.push({
+                siteName: 'weathermap',
+                siteEnvironment: "production",
+                siteCountry: "FR",
+                siteLanguage: "fr-FR",
+            });
+
+        </script>
+
+        <!-- Google Tag Manager -->
+        <script async id="gtmScript" data-nonce="034347eb6506ee2196d9ed9baeb05f355f16e2ddfbe0c1e2ae1d1e5f581cdb61" nonce="034347eb6506ee2196d9ed9baeb05f355f16e2ddfbe0c1e2ae1d1e5f581cdb61">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;var n=d.querySelector('[nonce]');
+        n&&j.setAttribute('nonce',n.nonce||n.getAttribute('nonce'));f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer', 'GTM-K3NSQW7');</script>
+
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet'/>
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
+        <script src="https://unpkg.com/@mapbox/mapbox-sdk@0.11.0/umd/mapbox-sdk.min.js"></script>
+
+        <script src="/dist/js/vendors.d3819c22be25320cdad1.js"></script><script src="/dist/js/app.d3819c22be25320cdad1.js"></script><link rel="stylesheet" href="/dist/css/app.d3819c22be25320cdad1.css"/>
+        <style>
+            body { margin:0; padding:0; }
+            .map { position:absolute; top:0; bottom:0; width:100%; }
+        </style>
+
+        <base href="/">
+    </head>
+
+    <body ng-app="app" ng-strict-di id="ng-app">
+
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K3NSQW7"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+        <div ng-view></div>
+
+                    <!--Cookie Consent -->
+            <script nonce="034347eb6506ee2196d9ed9baeb05f355f16e2ddfbe0c1e2ae1d1e5f581cdb61" id="cookie-consent-js" type="text/javascript" data-legals-url="https://legals.netatmo.com/" src="https://legals.netatmo.com/standalone/cookie-consent.js"></script>
+            </body>
+</html>
