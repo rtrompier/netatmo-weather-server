@@ -19,30 +19,6 @@ const argv = yargs(process.argv)
             default: 3000,
             description: 'Http server port'
         },
-        clientId: {
-            alias: 'ci',
-            type: 'string',
-            requiresArg: true,
-            description: 'Netatmo Client ID'
-        },
-        clientSecret: {
-            alias: 'cs',
-            type: 'string',
-            requiresArg: true,
-            description: 'Netatmo Client Secret'
-        },
-        username: {
-            alias: 'u',
-            type: 'string',
-            requiresArg: true,
-            description: 'Netatmo username'
-        },
-        password: {
-            alias: 'pw',
-            type: 'string',
-            requiresArg: true,
-            description: 'Netatmo password'
-        },
         latitude: {
             alias: 'lat',
             type: 'number',

@@ -6,7 +6,7 @@ import { WeatherStationData } from '../src/model/weather-station-data.model';
 import { Server } from '../src/server';
 
 import { AddressInfo } from 'net';
-import * as authResponse from './datas/auth-response.json';
+import * as fs from 'fs';
 import * as publicDataResponse from './datas/public-data-wind-response.json';
 
 let app: Server;
@@ -14,18 +14,16 @@ let app: Server;
 describe('Temperature', () => {
 
     beforeAll((done: DoneFn) => {
+        const homeResponse = fs.readFileSync('./spec/datas/home.html','utf8');
+
         // Mock Netatmo Auth API call
-        nock('https://api.netatmo.com')
-            .post('/oauth2/token')
-            .reply(200, authResponse);
+        nock('https://weathermap.netatmo.com')
+            .get('/')
+            .reply(200, homeResponse);
 
         app = new Server({
             verbose: false,
             port: 0,
-            clientId: '',
-            clientSecret: '',
-            username: '',
-            password: '',
             latitude: 1,
             longitude: 2,
             distance: 3
@@ -37,9 +35,8 @@ describe('Temperature', () => {
     });
     
     it('Should return first wind datas', (done: DoneFn) => {
-        // Mock Netatmo Data API call
-        nock('https://api.netatmo.com')
-            .post('/api/getpublicdata')
+        nock('https://app.netatmo.net')
+            .get('/api/getpublicmeasures')
             .reply(200, publicDataResponse);
 
         Axios.get(`http://localhost:${(app.server.address() as AddressInfo).port}/weather`)

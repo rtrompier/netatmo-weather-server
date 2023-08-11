@@ -4,10 +4,6 @@ services:
     environment:
       - NWS_VERBOSE=true
       - NWS_PORT=3000 # by default
-      - NWS_CLIENT_ID=123|456
-      - NWS_CLIENT_SECRET=qwerty
-      - NWS_USERNAME=your@email.com
-      - NWS_PASSWORD=your_password
       - NWS_LATITUDE=01.0000
       - NWS_LONGITUDE=02.0000
       - NWS_DISTANCE=2

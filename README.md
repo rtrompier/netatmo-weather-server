@@ -7,17 +7,6 @@
 
 This project is a little NodeJS server exposing public weather datas through a rest api
 
-## Requirement
-
-To use this application, you need to create first a developper account on Netatmo website.
-
-1. Go to [Netatmo DEV website](https://dev.netatmo.com) 
-1. Create an account
-1. Create an application, [in the App section](https://dev.netatmo.com/apps/)
-1. Netatmo will provide you a client ID and client Secret 
-![app infos](https://raw.githubusercontent.com/rtrompier/netatmo-weather-server/main/doc/netatmo.png)
-
-
 ## How to start
 
 ### Installation
@@ -57,10 +46,6 @@ $ netatmo-weather-server --help
 You can pass the following params by environment variables : 
 * **NWS_VERBOSE**        Run with verbose mode
 * **NWS_PORT**           Http server port
-* **NWS_CLIENT_ID**      Netatmo Client ID
-* **NWS_CLIENT_SECRET**  Netatmo Client Secret
-* **NWS_USERNAME**       Netatmo username
-* **NWS_PASSWORD**       Netatmo password
 * **NWS_LATITUDE**       Latitude to search nearby
 * **NWS_LONGITUDE**      Longitude to search nearby
 * **NWS_DISTANCE**       Distance to search nearby (in KM)
