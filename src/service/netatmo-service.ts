@@ -143,7 +143,7 @@ export class NetatmoService {
                 map((resp) => {
                     const matches = /accessToken: "?(.*)"/gm.exec(resp.data);
                     if (matches && matches.length > 1) {
-                        this.token = matches[1];
+                        this.token = matches[1].trim();
                     }
                     return null;
                 })
