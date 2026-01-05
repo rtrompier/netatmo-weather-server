@@ -13,7 +13,11 @@ describe('Healthcheck', () => {
             port: 0,
             latitude: 1,
             longitude: 2,
-            distance: 3
+            distance: 3,
+            netatmoToken: 'test',
+            netatmoRefreshToken: 'test',
+            netatmoClientId: 'test',
+            netatmoClientSecret: 'test'
         }, done);
     });
 

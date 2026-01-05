@@ -26,7 +26,11 @@ describe('Temperature', () => {
             port: 0,
             latitude: 1,
             longitude: 2,
-            distance: 3
+            distance: 3,
+            netatmoToken: 'test',
+            netatmoRefreshToken: 'test',
+            netatmoClientId: 'test',
+            netatmoClientSecret: 'test'
         }, done);
     });
 
@@ -38,6 +42,7 @@ describe('Temperature', () => {
         // Mock Netatmo Data API call
         nock('https://app.netatmo.net')
             .get('/api/getpublicmeasures')
+            .query(true)
             .reply(200, publicDataResponse);
 
         Axios.get(`http://localhost:${(app.server.address() as AddressInfo).port}/weather`)
