@@ -3,8 +3,9 @@
     "spec_files": [
         "**/*.spec.ts"
     ],
+    "jsLoader": "require",
     "helpers": [
-        "../node_modules/ts-node/register/type-check.js"
+        "../node_modules/ts-node/register/index.js"
     ],
     "stopSpecOnExpectationFailure": false,
     "random": true
