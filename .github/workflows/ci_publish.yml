@@ -3,6 +3,12 @@ name: Publish to Dockerhub
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., 1.0.0)'
+        required: true
+        type: string
 
 permissions:
   id-token: write  # Required for OIDC
@@ -14,33 +20,33 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v3
-      
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
-      
+
       - name: Install dependencies
         run: npm clean-install
-        
+
       - name: Lint
         run: npm run lint
-      
+
       - name: Test library
         run: npm run test
-      
+
       - name: Build
         run: npm run build
-      
-      - name: Publish
-        run: npm publish --access public
+
+#      - name: Publish
+#        run: npm publish --access public
 
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
           username: rtrompier
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
+
       - name: Build and push docker image
         uses: docker/build-push-action@v3
         with:
@@ -48,4 +54,4 @@ jobs:
           push: true
           tags: |
             rtrompier/netatmo-weather-server:latest
-            rtrompier/netatmo-weather-server:${{ github.event.release.tag_name }}
+            rtrompier/netatmo-weather-server:${{ inputs.version || github.event.release.tag_name }}
