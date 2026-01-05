@@ -36,6 +36,30 @@ const argv = yargs(process.argv)
             type: 'number',
             requiresArg: true,
             description: 'Distance to search nearby (in KM)'
+        },
+        netatmoToken: {
+            alias: 't',
+            type: 'string',
+            requiresArg: true,
+            description: 'Netatmo token'
+        },
+        netatmoRefreshToken: {
+            alias: 'rt',
+            type: 'string',
+            requiresArg: true,
+            description: 'Netatmo refresh token'
+        },
+        netatmoClientId: {
+            alias: 'cid',
+            type: 'string',
+            requiresArg: true,
+            description: 'Netatmo client ID'
+        },
+        netatmoClientSecret: {
+            alias: 'cs',
+            type: 'string',
+            requiresArg: true,
+            description: 'Netatmo client secret'
         }
     })
     .argv;

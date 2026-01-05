@@ -44,12 +44,19 @@ $ netatmo-weather-server --help
 ### Parameters
 
 You can pass the following params by environment variables : 
-* **NWS_VERBOSE**        Run with verbose mode
-* **NWS_PORT**           Http server port
-* **NWS_LATITUDE**       Latitude to search nearby
-* **NWS_LONGITUDE**      Longitude to search nearby
-* **NWS_DISTANCE**       Distance to search nearby (in KM)
+* **NWS_VERBOSE**               Run with verbose mode
+* **NWS_PORT**                  Http server port
+* **NWS_LATITUDE**              Latitude to search nearby
+* **NWS_LONGITUDE**             Longitude to search nearby
+* **NWS_DISTANCE**              Distance to search nearby (in KM)
+* **NWS_NETATMO_TOKEN**         Netatmo access token
+* **NWS_NETATMO_REFRESH_TOKEN** Netatmo refresh token (used to automatically refresh expired access token)
+* **NWS_NETATMO_CLIENT_ID**     Netatmo client ID (from your [Netatmo Dev app](https://dev.netatmo.com/apps/))
+* **NWS_NETATMO_CLIENT_SECRET** Netatmo client secret (from your [Netatmo Dev app](https://dev.netatmo.com/apps/))
 
+
+For Netatmo variables, you need to create a [Netatmo Dev app](https://dev.netatmo.com/apps/).
+Then, generate a token by using Token Generator.
 
 ### How to use
 A REST Api is available to get weathers data.

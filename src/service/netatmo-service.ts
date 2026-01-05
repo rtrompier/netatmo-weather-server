@@ -1,5 +1,6 @@
 import { Axios } from 'axios-observable';
-import { Observable, of } from 'rxjs';
+import { AxiosError } from 'axios';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap, toArray } from 'rxjs/operators';
 import { BoundsCoords } from '../model/bounds-coords.model';
 import { Config } from '../model/config.model';
@@ -17,12 +18,14 @@ import { GeoService } from './geo-service';
 export class NetatmoService {
     private readonly config: Config;
     private readonly boundCoords: BoundsCoords;
-    private token!: string;
-    private refreshToken!: string;
+    private accessToken: string;
+    private refreshToken: string;
 
     constructor(config: Config) {
         this.config = config;
         this.boundCoords = new GeoService().getBoundsCoords(this.config.latitude, this.config.longitude, this.config.distance);
+        this.accessToken = this.config.netatmoToken;
+        this.refreshToken = this.config.netatmoRefreshToken;
     }
 
     /**
@@ -125,44 +128,69 @@ export class NetatmoService {
     }
 
     /**
-     * Find public access token in weather map home page
+     * Check if we have a valid token
      * @returns 
      */
     private auth(): Observable<null> {
-        if (this.token) {
+        if (this.accessToken) {
             return of(null);
         }
 
-        return Axios.get(`https://weathermap.netatmo.com`)
-            .pipe(
-                tap((resp) => {
-                    if (this.config.verbose) {
-                        console.log(`Netatmo auth response`, resp);
-                    }
-                }),
-                map((resp) => {
-                    const matches = /accessToken: "?(.*)"/gm.exec(resp.data);
-                    if (matches && matches.length > 1) {
-                        this.token = matches[1].trim();
-                    }
-                    return null;
-                })
-            );
+        // No token available, try to refresh
+        return this.doRefreshToken();
+    }
+
+    /**
+     * Refresh the access token using the refresh token
+     * @see https://dev.netatmo.com/apidocumentation/oauth
+     * @returns 
+     */
+    private doRefreshToken(): Observable<null> {
+        if (!this.refreshToken || !this.config.netatmoClientId || !this.config.netatmoClientSecret) {
+            return throwError(() => new Error('Missing refresh token or client credentials for token refresh'));
+        }
+
+        if (this.config.verbose) {
+            console.log('Refreshing Netatmo access token...');
+        }
+
+        const params = new URLSearchParams();
+        params.append('grant_type', 'refresh_token');
+        params.append('refresh_token', this.refreshToken);
+        params.append('client_id', this.config.netatmoClientId);
+        params.append('client_secret', this.config.netatmoClientSecret);
+
+        return Axios.post('https://api.netatmo.com/oauth2/token', params.toString(), {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).pipe(
+            tap((resp) => {
+                if (this.config.verbose) {
+                    console.log('Token refresh successful');
+                }
+                this.accessToken = resp.data.access_token;
+                this.refreshToken = resp.data.refresh_token;
+            }),
+            map(() => null),
+            catchError((err) => {
+                console.error('Failed to refresh token', err.response?.data || err.message);
+                return throwError(() => new Error('Failed to refresh Netatmo token'));
+            })
+        );
     }
 
     /**
      * Load datas from Netatmo
+     * @param isRetry - indicates if this is a retry after token refresh
      */
-    private getData(): Observable<WeatherStation[]> {
+    private getData(isRetry = false): Observable<WeatherStation[]> {
         if (this.config.verbose) {
             console.log('Bounding coordinates to search nearby', this.boundCoords);
         }
 
         return Axios.get(`https://app.netatmo.net/api/getpublicmeasures`, {
-            headers: {
-                "Authorization": `Bearer ${this.token}`,
-            },
-            data: {
+            params: {
                 'lat_ne': this.boundCoords.ne.lat,
                 'lon_ne': this.boundCoords.ne.lng,
                 'lat_sw': this.boundCoords.sw.lat,
@@ -172,6 +200,7 @@ export class NetatmoService {
                 'zoom': 10,
                 'date_end': 'last',
                 'quality': 7,
+                'access_token': this.accessToken,
             }
         })
         .pipe(
@@ -180,7 +209,19 @@ export class NetatmoService {
                     console.log(`Weather API response`, resp.data);
                 }
             }),
-            map((resp) => resp.data.body)
+            map((resp) => resp.data.body),
+            catchError((err: AxiosError) => {
+                // If 403 and not already a retry, refresh token and retry once
+                if (err.response?.status === 403 && !isRetry) {
+                    if (this.config.verbose) {
+                        console.log('Received 403, attempting to refresh token and retry...');
+                    }
+                    return this.doRefreshToken().pipe(
+                        switchMap(() => this.getData(true))
+                    );
+                }
+                return throwError(() => err);
+            })
         );
     }
 
